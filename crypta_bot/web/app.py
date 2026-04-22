@@ -43,7 +43,7 @@ def create_dashboard(bot) -> FastAPI:
     async def home(request: Request) -> HTMLResponse:
         ok = request.cookies.get("crypta_admin") == settings.dashboard_admin_key
         if not ok:
-            return templates.TemplateResponse("login.html", {"request": request, "error": None})
+            return templates.TemplateResponse(request, "login.html", {"error": None})
         guilds = [dict(row) for row in read_guild_rows()]
         return templates.TemplateResponse(
             "dashboard.html",
@@ -53,7 +53,7 @@ def create_dashboard(bot) -> FastAPI:
     @app.post("/login", response_class=HTMLResponse)
     async def login(request: Request, admin_key: str = Form(...)):
         if admin_key != settings.dashboard_admin_key:
-            return templates.TemplateResponse("login.html", {"request": request, "error": "Неверный ключ"})
+            return templates.TemplateResponse(request, "login.html", {"error": "Неверный ключ"})
         response = RedirectResponse(url="/", status_code=303)
         response.set_cookie("crypta_admin", admin_key, httponly=True, samesite="lax")
         return response
