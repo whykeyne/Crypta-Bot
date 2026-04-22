@@ -46,8 +46,9 @@ def create_dashboard(bot) -> FastAPI:
             return templates.TemplateResponse(request, "login.html", {"error": None})
         guilds = [dict(row) for row in read_guild_rows()]
         return templates.TemplateResponse(
+            request,
             "dashboard.html",
-            {"request": request, "guilds": guilds, "public_url": settings.dashboard_public_url},
+            {"guilds": guilds, "public_url": settings.dashboard_public_url},
         )
 
     @app.post("/login", response_class=HTMLResponse)
