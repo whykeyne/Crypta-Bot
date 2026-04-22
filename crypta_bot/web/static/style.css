@@ -1,0 +1,43 @@
+:root {
+  color-scheme: dark;
+  --bg: #070816;
+  --card: rgba(21, 25, 53, 0.88);
+  --line: rgba(255,255,255,0.08);
+  --text: #ffffff;
+  --muted: rgba(255,255,255,0.68);
+  --accent: linear-gradient(90deg, #8b5cf6 0%, #22d3ee 100%);
+}
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  background: radial-gradient(circle at top, rgba(82,65,255,.22), transparent 30%), #070816;
+  color: var(--text);
+}
+.wrapper { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.28);
+}
+.hero { padding: 28px; display:flex; justify-content:space-between; gap:24px; align-items:end; margin-bottom:24px; }
+.badge { display:inline-block; padding:8px 14px; border-radius:999px; background: rgba(34,211,238,.12); color:#b7f7ff; font-size:13px; margin-bottom:10px; }
+.side-note { color: var(--muted); }
+.guild-card { padding: 24px; margin-top: 18px; }
+.grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.full { grid-column: 1 / -1; }
+label { display:flex; flex-direction:column; gap:8px; color: var(--muted); font-size:14px; }
+input, textarea, select {
+  border-radius: 16px; border:1px solid var(--line); background:#0c1126; color:white;
+  padding: 14px 16px; font: inherit;
+}
+button {
+  background: var(--accent); color:black; border:none; border-radius:18px; padding: 14px 20px;
+  font-weight:700; cursor:pointer;
+}
+.actions { display:flex; justify-content:flex-end; }
+.login-body { min-height:100vh; display:grid; place-items:center; padding:24px; }
+.login-card { width:min(440px, 100%); padding:32px; }
+.error { color:#ff9494; margin-bottom:12px; }
+@media (max-width: 760px){ .grid{grid-template-columns:1fr;} .hero{flex-direction:column; align-items:start;} }

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crypta Dashboard Login</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="login-body">
+  <div class="card login-card">
+    <div class="badge">Crypta Dashboard</div>
+    <h1>Вход в панель</h1>
+    <p>Введи admin key из .env, чтобы открыть настройки сервера.</p>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    <form method="post" action="/login">
+      <input type="password" name="admin_key" placeholder="DASHBOARD_ADMIN_KEY" required>
+      <button type="submit">Войти</button>
+    </form>
+  </div>
+</body>
+</html>
