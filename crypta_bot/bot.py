@@ -65,7 +65,7 @@ class CryptaBot(commands.Bot):
         ]:
             await self.load_extension(ext)
         app = create_dashboard(self)
-        config = __import__("uvicorn").Config(app, host=settings.dashboard_host, port=settings.dashboard_port, log_level="warning")
+        config = __import__("uvicorn").Config(app, host=settings.dashboard_host, port=settings.dashboard_port, log_level="info", access_log=True)
         self.dashboard_server = __import__("uvicorn").Server(config)
         self.loop.create_task(self.dashboard_server.serve())
         if settings.guild_id:

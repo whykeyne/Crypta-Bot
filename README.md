@@ -14,3 +14,6 @@ A modular Discord bot with:
 
 ## Dashboard
 Open `DASHBOARD_PUBLIC_URL` in your browser and log in using `DASHBOARD_ADMIN_KEY`.
+
+
+Railway note: use DATABASE_PATH=/app/data/crypta_bot.db and mount a volume at /app/data.
