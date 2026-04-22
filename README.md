@@ -1,19 +1,13 @@
-# Crypta Bot Full Suite
+# Crypta Bot
 
-A modular Discord bot with:
-- voice control panel
-- music panel and queue
-- voice XP / level system
-- built-in dashboard for configuration
+Discord bot with voice-control panels, music module, voice levels, and a public website with Discord OAuth.
 
-## Run locally
-1. Copy `.env.example` to `.env`
-2. Fill in your values
-3. Install requirements
-4. Start with `python -m crypta_bot`
+## Website
+- landing page
+- Add Bot button
+- login with Discord
+- manage only your available guilds
+- save per-guild settings
 
-## Dashboard
-Open `DASHBOARD_PUBLIC_URL` in your browser and log in using `DASHBOARD_ADMIN_KEY`.
-
-
-Railway note: use DATABASE_PATH=/app/data/crypta_bot.db and mount a volume at /app/data.
+## Railway
+Attach a volume to `/app/data` and set OAuth variables in `.env`.

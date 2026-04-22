@@ -6,50 +6,57 @@
   <title>Crypta Dashboard</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
-<body>
-  <main class="wrapper">
-    <section class="hero card">
-      <div>
-        <div class="badge">Crypta Bot</div>
-        <h1>Панель настройки</h1>
-        <p>Здесь можно выбрать каналы для панелей, музыки, уровней и оставить заметку по серверу.</p>
-      </div>
-      <div class="side-note">Public URL: {{ public_url }}</div>
-    </section>
-
-    {% for guild in guilds %}
-    <section class="card guild-card">
-      <h2>Guild ID: {{ guild.guild_id }}</h2>
-      <form method="post" action="/guild/{{ guild.guild_id }}" class="grid">
-        <label>
-          Panel Channel ID
-          <input type="number" name="panel_channel_id" value="{{ guild.panel_channel_id }}">
-        </label>
-        <label>
-          Music Channel ID
-          <input type="number" name="music_channel_id" value="{{ guild.music_channel_id }}">
-        </label>
-        <label>
-          Level Channel ID
-          <input type="number" name="level_channel_id" value="{{ guild.level_channel_id }}">
-        </label>
-        <label>
-          Voice Levels Enabled
-          <select name="level_enabled">
-            <option value="1" {% if guild.level_enabled %}selected{% endif %}>On</option>
-            <option value="0" {% if not guild.level_enabled %}selected{% endif %}>Off</option>
-          </select>
-        </label>
-        <label class="full">
-          Dashboard Note
-          <textarea name="dashboard_note" rows="4">{{ guild.dashboard_note }}</textarea>
-        </label>
-        <div class="full actions">
-          <button type="submit">Сохранить</button>
+<body class="site-body">
+  <main class="dashboard-shell">
+    <aside class="sidebar card">
+      <div class="profile-box">
+        <div class="eyebrow">Dashboard</div>
+        <h2>Crypta Bot</h2>
+        <p>Вошёл как <strong>{{ user.username }}</strong></p>
+        <div class="sidebar-actions">
+          <a class="btn btn-primary small" href="{{ invite_url }}">Add Bot</a>
+          <a class="btn btn-secondary small" href="/logout">Выйти</a>
         </div>
-      </form>
+      </div>
+      <div class="guild-list">
+        <div class="section-title">Твои сервера</div>
+        {% if guilds %}
+          {% for guild in guilds %}
+            <a class="guild-link {% if selected_guild and selected_guild.id == guild.id %}active{% endif %}" href="/?guild={{ guild.id }}">
+              <span>{{ guild.name }}</span>
+              {% if guild.configured %}<em>configured</em>{% endif %}
+            </a>
+          {% endfor %}
+        {% else %}
+          <div class="empty-note">Нет доступных серверов. Убедись, что бот уже добавлен на сервер и у тебя есть права Manage Server или Administrator.</div>
+        {% endif %}
+      </div>
+    </aside>
+    <section class="content-area">
+      <section class="card page-header">
+        <div>
+          <div class="eyebrow">Public website</div>
+          <h1>Настройка сервера</h1>
+          <p>Сайт общедоступный, но после входа каждый видит только свои серверы.</p>
+        </div>
+        <div class="public-url">{{ public_url }}</div>
+      </section>
+      {% if selected_guild and guild_settings %}
+      <section class="card settings-card">
+        <div class="section-title large">{{ selected_guild.name }}</div>
+        <form method="post" action="/guild/{{ selected_guild.id }}" class="settings-grid">
+          <label><span>Panel Channel ID</span><input type="number" name="panel_channel_id" value="{{ guild_settings.panel_channel_id }}"></label>
+          <label><span>Music Channel ID</span><input type="number" name="music_channel_id" value="{{ guild_settings.music_channel_id }}"></label>
+          <label><span>Level Channel ID</span><input type="number" name="level_channel_id" value="{{ guild_settings.level_channel_id }}"></label>
+          <label><span>Voice Levels</span><select name="level_enabled"><option value="1" {% if guild_settings.level_enabled %}selected{% endif %}>On</option><option value="0" {% if not guild_settings.level_enabled %}selected{% endif %}>Off</option></select></label>
+          <label class="full-width"><span>Dashboard Note</span><textarea name="dashboard_note" rows="6">{{ guild_settings.dashboard_note }}</textarea></label>
+          <div class="form-actions full-width"><button class="btn btn-primary" type="submit">Сохранить настройки</button></div>
+        </form>
+      </section>
+      {% else %}
+      <section class="card settings-card"><div class="section-title large">Сервер не выбран</div><p class="empty-note">Выбери сервер слева, чтобы управлять его настройками.</p></section>
+      {% endif %}
     </section>
-    {% endfor %}
   </main>
 </body>
 </html>

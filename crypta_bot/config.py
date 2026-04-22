@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import secrets
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -19,7 +20,6 @@ class Settings:
     dashboard_host: str = os.getenv("DASHBOARD_HOST", "0.0.0.0")
     dashboard_port: int = int(os.getenv("DASHBOARD_PORT", os.getenv("PORT", "8000")) or 8000)
     dashboard_public_url: str = os.getenv("DASHBOARD_PUBLIC_URL", "http://localhost:8000")
-    dashboard_admin_key: str = os.getenv("DASHBOARD_ADMIN_KEY", "change_me_please")
     database_path: Path = Path(
         os.getenv(
             "DATABASE_PATH",
@@ -31,6 +31,11 @@ class Settings:
     default_volume: float = float(os.getenv("DEFAULT_VOLUME", "0.55") or 0.55)
     control_channel_name: str = os.getenv("CONTROL_CHANNEL_NAME", "voice-control")
     bot_prefix: str = os.getenv("BOT_PREFIX", "!")
+    discord_client_id: str = os.getenv("DISCORD_CLIENT_ID", "")
+    discord_client_secret: str = os.getenv("DISCORD_CLIENT_SECRET", "")
+    discord_redirect_uri: str = os.getenv("DISCORD_REDIRECT_URI", "")
+    session_secret: str = os.getenv("SESSION_SECRET", secrets.token_urlsafe(32))
+    bot_permissions: int = int(os.getenv("BOT_PERMISSIONS", str(8)) or 8)
 
 
 settings = Settings()
